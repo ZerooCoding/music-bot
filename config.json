@@ -1,0 +1,9 @@
+{
+  
+  "TOKEN": "SUPER SECRET TOKEN HERE",
+  "YOUTUBE_API_KEY": "",
+  "SOUNDCLOUD_CLIENT_ID": "",
+  "SERVER_NAME": "YOUR SERVER NAME HERE",
+  "PREFIX": ".",
+  "PRUNING": false
+}
