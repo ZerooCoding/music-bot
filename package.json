@@ -1,13 +1,13 @@
 {
   "name": "musicbot",
-  "version": "1.2.1",
+  "version": "0.1.0",
   "description": "Discord music bot built with discord.js",
   "main": "index.js",
   "author": "Udit <udit2303@gmail.com>, Ralfs Embriks <ralfs.embriks@gmail.com>",
   "private": true,
-  "homepage": "https://github.com/udit2303/udits-music-bot",
-  "repository": "github:udit2303/udits-music-bot",
-  "bugs": "https://github.com/udit2303/udits-music-bot/issues",
+  "homepage": "https://github.com/udit2303/infinite-music",
+  "repository": "github:udit2303/infinite-music",
+  "bugs": "https://github.com/udit2303/infinite-music/issues",
   "engines": {
     "node": ">=12.0.0"
   },
@@ -16,7 +16,7 @@
     "@haileybot/captcha-generator": "^1.2.3",
     "canvacord": "^5.0.8",
     "cheerio": "^1.0.0-rc.3",
-    "discord-canvas": "^1.4.1",
+    "discord-canvas": "^1.3.2",
     "discord.js": "^12.4.1",
     "ejs": "^3.1.5",
     "express": "^4.17.1",
@@ -38,7 +38,6 @@
     "parse-ms": "^2.1.0",
     "paypal-rest-sdk": "^1.8.1",
     "pm2": "^4.5.0",
-    "pokecord": "^1.0.0",
     "prism-media": "^1.2.2",
     "quick.db": "^7.1.3",
     "quick.db-prototypes": "^1.0.1",
@@ -55,7 +54,7 @@
     "weather-js": "^2.0.0",
     "xmldom": "^0.3.0",
     "xpath": "0.0.29",
-    "youtube-sr": "^1.0.7",
+    "youtube-sr": "^1.0.4",
     "ytdl-core": "^3.4.2",
     "ytdl-core-discord": "^1.2.4"
   },

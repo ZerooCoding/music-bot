@@ -1,18 +1,20 @@
 //const pm2 = require('pm2')
-const randomPuppy = require('random-puppy')
+
+
 const Discord = require("discord.js");
 const { Client, Collection } = require("discord.js");
 const { readdirSync } = require("fs");
-const fetch = require('node-fetch')
 const { join } = require("path");
-let { TOKEN, PREFIX, SERVER_NAME } = require("./config.json");
+const { TOKEN, PREFIX, SERVER_NAME } = require("./config.json");
 const createCaptcha = require("./commands/captcha");
 const fs = require('fs').promises;
 const db = require('quick.db');
 const Canvas = require("discord-canvas");
+const Captcha = require("./node_modules/@haileybot/captcha-generator");
 const keepAlive = require('./server1');
 const { Intents } = require("discord.js");
-const client = new Client({ disableMentions: "everyone", restRequestTimeout: 30000 }, { ws: { properties: { $browser: "Discord iOS" }} });
+const client = new Client({ disableMentions: "everyone", restRequestTimeout: 30000 }, { ws: { intents: Intents.ALL } });
+
 keepAlive();
 client.login(TOKEN);
 client.commands = new Collection();
@@ -24,23 +26,21 @@ const escapeRegex = (str) => str.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
 
 client.on("ready", () => {
   console.log(`\n${client.user.username} ready!`);
-  client.user.setActivity(`Over ${client.users.cache.size} members.`, { type : 'WATCHING' });
- setInterval(async () => {
-      const response = await fetch(`https://api.snowflakedev.xyz/meme`)
-        const json = await response.json();
-        const meme = {
-          title: json.title,
-          img: json.url,
-          link: json.link,
-          subreddit: json.subreddit
-        }
+  client.user.setActivity(`Over ${client.users.cache.size} members. Devil Sinners`, { type : 'WATCHING' });
+ setTimeout(async () => {
+      const subReddits = ["dankmeme", "meme", "memes"]
+        const random = subReddits[Math.floor(Math.random() * subReddits.length)]
+        
+        const img = await randomPuppy(random);
+
         const memeembed = new Discord.MessageEmbed()
-        .setTitle(`${meme.title}`)
-        .setImage(meme.img)
+        .setAuthor('Udit\'s Music Bot')
+        .setImage(img)
+        .setTitle(`Meme from r/${random}`)
         .setColor('RANDOM')
-        .setURL(meme.link);
+        .setURL(`https://reddit.com/r/${random}`);
         client.channels.cache.get('722309754587840543').send(memeembed);
-    }, 1800000)
+    }, 600000)
 });
 client.on("warn", (info) => console.log(info));
 client.on("error", console.error);
@@ -140,26 +140,20 @@ member.guild.channels.cache.get('444438197079113739').send(attachment);
 })
 
 */
-client.on("message", async(message) => {
-  if(message.author.bot) return ;
-  let channelid = await db.get(`chat_${message.guild.id}`)
-  if(message.channel.id!== channelid) return;
-  let content = message.content.toLowerCase()
-    message.channel.startTyping();
-    const response = await fetch(`https://api.snowflakedev.xyz/chatbot?message=${encodeURIComponent(message.content)}&name=${encodeURIComponent(client.user.username)}&gender=Male&user=${encodeURIComponent(message.author.id)}`)
-    const json = await response.json();
-    message.channel.send(json.message.replace('Acobot Team', 'Udit'));
-    return message.channel.stopTyping(true);
-});
-
-
-
 
 client.on("message", async (message) => {
-  PREFIX = await db.get(`prefix_${message.guild.id}`)
-  if(PREFIX === null) PREFIX = '.';
+  if (message.author.bot) return;  
+  let id = await db.get(`chat_${message.guild.id}`)
+  if (message.channel.id !== id) return;
+      message.channel.startTyping();
+      const response = await fetch(`https://api.snowflakedev.xyz/chatbot?message=${encodeURIComponent(message.content)}&name=${encodeURIComponent(client.user.username)}&gender=MALE&user-${message.author.id}`)
+      const json = await response.json();
+      message.channel.send(json.message);
+      return message.channel.stopTyping(true);
+});
+client.on("message", async (message) => {
   if (message.author.bot) return;
-  let blacklisted = ['absolutely something no one would type'];
+ /* let blacklisted = ['absolutely something no one would type'];
   let foundInText = false;
   for (var i in blacklisted) {
     if (message.content.toLowerCase().includes(blacklisted[i].toLowerCase())) foundInText = true;
@@ -180,9 +174,9 @@ client.on("message", async (message) => {
     );
     
    client.channels.cache.find(c => c.name === "baat-cheet🖤").send(mesembed);
-  }
+  }*/
   xp(message);
-  if(message.mentions.users.first() == client.user) message.channel.send(`My prefix for this server is \`${PREFIX}\`, you can use that to use any commands too.`);
+  if(message.mentions.users.first() == client.user) return message.channel.send('Uh No.')
  
   const prefixRegex = new RegExp(`^(<@!?${client.user.id}>|${escapeRegex(PREFIX)})\\s*`);
   if (!prefixRegex.test(message.content)) return;
@@ -232,7 +226,7 @@ function xp(message) {
   const random = Math.floor(Math.random() * 10) + 15;
   db.add(`guild_${message.guild.id}_xp_${message.author.id}`, random);
   db.add(`guild_${message.guild.id}_xptotal_${message.author.id}`, random);
-  var level = db.get(`guild_${message.guild.id}_level_${message.author.id}`) || 0;
+  var level = db.get(`guild_${message.guild.id}_level_${message.author.id}`) || 1;
   var xp = db.get(`guild_${message.guild.id}_xp_${message.author.id}`);
   var xpNeeded = level * 500
   if(xpNeeded < xp){

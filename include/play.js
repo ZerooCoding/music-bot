@@ -74,7 +74,7 @@ module.exports = {
     }
     try {
       var embed = new Discord.MessageEmbed()
-      .setTitle(`Campion Music Bot`)
+      .setTitle(`Udit's Music Bot`)
       .setColor("#F8AA2A")
      .setDescription(`Playing [${song.title}](${song.url})[${message.author}]`);
       var playingMessage = await queue.textChannel.send(embed);

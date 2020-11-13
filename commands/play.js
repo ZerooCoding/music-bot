@@ -3,7 +3,7 @@ const { YOUTUBE_API_KEY, SOUNDCLOUD_CLIENT_ID } = require("../config.json");
 const ytdl = require("ytdl-core");
 const youtube = require("youtube-sr");
 const scdl = require("soundcloud-downloader");
-const Discord = require('discord.js')
+
 module.exports = {
   name: "play",
   cooldown: 3,
@@ -97,7 +97,7 @@ module.exports = {
       serverQueue.songs.push(song);
        const some = new Discord.MessageEmbed()
       .setColor('ORANGE')
-      .setTitle('Campion Music Bot')
+      .setTitle('Air France - KLM | Music')
       .setDescription(`Queued [${song.title}](${song.url})[${message.author}]`);
       return serverQueue.textChannel
         .send(some)

@@ -1,9 +1,10 @@
 {
   
-  "TOKEN": "SUPER SECRET TOKEN HERE",
+  "TOKEN": "",
   "YOUTUBE_API_KEY": "",
   "SOUNDCLOUD_CLIENT_ID": "",
-  "SERVER_NAME": "YOUR SERVER NAME HERE",
+  "SERVER_NAME": "Campion Music Bot",
+  "MAX_PLAYLIST_SIZE": 10,
   "PREFIX": ".",
   "PRUNING": false
 }
