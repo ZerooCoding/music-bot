@@ -27,20 +27,23 @@ const escapeRegex = (str) => str.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
 client.on("ready", () => {
   console.log(`\n${client.user.username} ready!`);
   client.user.setActivity(`Over ${client.users.cache.size} members. Devil Sinners`, { type : 'WATCHING' });
- setTimeout(async () => {
-      const subReddits = ["dankmeme", "meme", "memes"]
-        const random = subReddits[Math.floor(Math.random() * subReddits.length)]
-        
-        const img = await randomPuppy(random);
-
+  setInterval(async () => {
+      const response = await fetch(`https://api.snowflakedev.xyz/meme`)
+        const json = await response.json();
+        const meme = {
+          title: json.title,
+          img: json.url,
+          link: json.link,
+          subreddit: json.subreddit
+        }
+        const channel = client.channels.cache.get('778985068910870559')
         const memeembed = new Discord.MessageEmbed()
-        .setAuthor('Udit\'s Music Bot')
-        .setImage(img)
-        .setTitle(`Meme from r/${random}`)
+        .setTitle(`${meme.title}`)
+        .setImage(meme.img)
         .setColor('RANDOM')
-        .setURL(`https://reddit.com/r/${random}`);
-        client.channels.cache.get('722309754587840543').send(memeembed);
-    }, 600000)
+        .setURL(meme.link);
+        return channel.send(memeembed).catch(console.error)
+    }, 3600000)
 });
 client.on("warn", (info) => console.log(info));
 client.on("error", console.error);
@@ -146,7 +149,7 @@ client.on("message", async (message) => {
   let id = await db.get(`chat_${message.guild.id}`)
   if (message.channel.id !== id) return;
       message.channel.startTyping();
-      const response = await fetch(`https://api.snowflakedev.xyz/chatbot?message=${encodeURIComponent(message.content)}&name=${encodeURIComponent(client.user.username)}&gender=MALE&user-${message.author.id}`)
+      const response = await fetch(`https://api.udit.gq/chatbot?message=${encodeURIComponent(message.content)}&name=${encodeURIComponent(client.user.username)}&gender=MALE`)
       const json = await response.json();
       message.channel.send(json.message);
       return message.channel.stopTyping(true);
