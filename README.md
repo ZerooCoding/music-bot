@@ -1,15 +1,19 @@
 # music-bot
 Website: [URL](https://sites.google.com/view/discordmusicbot)
-To run: ```
+To run: 
+```
 npm i 
 ```
 Before starting the bot, edit `config.json` and enter the required fields.
 
-To start the bot, type ```
+To start the bot, type 
+```
 npm start
-``` or
+```
+or
 ```
 node index.js
-``` to start the bot.
+``` 
+to start the bot.
 Looking for someone who can describe the code by adding comments and remove unneccessary code. Would be helpful!
 Contribute by Opening a PR.
