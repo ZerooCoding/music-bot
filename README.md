@@ -1,5 +1,5 @@
 # music-bot
-Website: [URL](https://sites.google.com/view/discordmusicbot)
+Website: [URL](https://udit.gq)
 To run: 
 ```
 npm i 
